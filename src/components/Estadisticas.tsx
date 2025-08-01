@@ -11,13 +11,8 @@ export const Estadisticas: React.FC<EstadisticasProps> = ({ bordados }) => {
   const bordadosPagados = bordados.filter(b => b.pagado);
   const bordadosPendientesPago = bordados.filter(b => !b.pagado);
   
-  const totalIngresos = bordadosCompletados.reduce((sum, b) => sum + b.precioTotal, 0);
   const ingresosPagados = bordadosPagados.reduce((sum, b) => sum + b.precioTotal, 0);
   const ingresosPendientesPago = bordadosPendientesPago.reduce((sum, b) => sum + b.precioTotal, 0);
-  
-  const bordadosVencidos = bordadosPendientes.filter(b => 
-    new Date(b.fechaEntrega) < new Date()
-  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
