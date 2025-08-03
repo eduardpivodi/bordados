@@ -73,14 +73,9 @@ export const TablaBordados: React.FC<TablaBordadosProps> = ({
 
   if (bordados.length === 0) {
     return (
-      <div style={{ 
-        backgroundColor: 'white', 
-        borderRadius: '0.5rem', 
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', 
-        padding: '1.5rem' 
-      }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem' }}>{titulo}</h2>
-        <p style={{ color: '#6b7280', textAlign: 'center', padding: '2rem 0' }}>
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">{titulo}</h2>
+        <p className="text-gray-500 text-center py-8">
           {mostrarCompletados ? 'No hay bordados completados' : 'No hay bordados pendientes'}
         </p>
       </div>
@@ -88,225 +83,160 @@ export const TablaBordados: React.FC<TablaBordadosProps> = ({
   }
 
   return (
-    <div style={{ 
-      backgroundColor: 'white', 
-      borderRadius: '0.5rem', 
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', 
-      padding: '1.5rem' 
-    }}>
-      <h2 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem' }}>{titulo}</h2>
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">{titulo}</h2>
       
       {/* Campo de búsqueda */}
-      <div style={{ marginBottom: '1rem' }}>
+      <div className="mb-4">
         <input
           type="text"
           placeholder="Buscar por nombre, contacto o descripción..."
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            border: '1px solid #d1d5db',
-            borderRadius: '0.375rem',
-            fontSize: '0.875rem',
-            outline: 'none',
-            transition: 'border-color 0.2s'
-          }}
-          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-          onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+          className="w-full px-4 py-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
         />
       </div>
 
       {bordadosFiltrados.length === 0 && busqueda.trim() && (
-        <p style={{ color: '#6b7280', textAlign: 'center', padding: '1rem 0' }}>
+        <p className="text-gray-500 text-center py-4">
           No se encontraron bordados que coincidan con la búsqueda
         </p>
       )}
       
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ minWidth: '100%', borderCollapse: 'collapse' }}>
-          <thead style={{ backgroundColor: '#f9fafb' }}>
-            <tr>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Cliente
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Contacto
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Descripción
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Cantidad
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Precio
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Total
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Entrega
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Estado
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Pago
-              </th>
-              <th style={{ padding: '0.75rem 1.5rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody style={{ backgroundColor: 'white' }}>
-            {bordadosFiltrados.map((bordado, index) => (
-              <tr key={bordado.id} style={{ 
-                borderBottom: '1px solid #e5e7eb',
-                backgroundColor: index % 2 === 0 ? 'white' : '#f9fafb'
-              }}>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827' }}>
-                    {bordado.nombreCliente}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <button
-                    onClick={() => abrirWhatsApp(bordado.numeroContacto)}
-                    style={{ 
-                      fontSize: '0.875rem', 
-                      color: '#2563eb', 
-                      textDecoration: 'underline',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer'
-                    }}
-                    onMouseOver={(e) => e.currentTarget.style.color = '#1d4ed8'}
-                    onMouseOut={(e) => e.currentTarget.style.color = '#2563eb'}
-                  >
-                    {bordado.numeroContacto}
-                  </button>
-                </td>
-                <td style={{ padding: '1rem 1.5rem' }}>
-                  <div style={{ fontSize: '0.875rem', color: '#111827', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {bordado.descripcion}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ fontSize: '0.875rem', color: '#111827' }}>
-                    {bordado.cantidad}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ fontSize: '0.875rem', color: '#111827' }}>
-                    ${bordado.precio.toFixed(2)}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827' }}>
-                    ${bordado.precioTotal.toFixed(2)}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ fontSize: '0.875rem', color: '#111827' }}>
-                    {formatearFecha(bordado.fechaEntrega)}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ 
-                    fontSize: '0.75rem', 
-                    fontWeight: '500', 
-                    padding: '0.25rem 0.5rem',
-                    borderRadius: '0.25rem',
-                    backgroundColor: bordado.completado ? '#dcfce7' : '#fef3c7',
-                    color: bordado.completado ? '#166534' : '#92400e',
-                    textAlign: 'center',
-                    display: 'inline-block'
-                  }}>
-                    {bordado.completado ? 'Completado' : 'Pendiente'}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap' }}>
-                  <div style={{ 
-                    fontSize: '0.75rem', 
-                    fontWeight: '500', 
-                    padding: '0.25rem 0.5rem',
-                    borderRadius: '0.25rem',
-                    backgroundColor: bordado.pagado ? '#dcfce7' : '#fee2e2',
-                    color: bordado.pagado ? '#166534' : '#991b1b',
-                    textAlign: 'center',
-                    display: 'inline-block'
-                  }}>
-                    {bordado.pagado ? 'Pagado' : 'Pendiente'}
-                  </div>
-                </td>
-                <td style={{ padding: '1rem 1.5rem', whiteSpace: 'nowrap', fontSize: '0.875rem', fontWeight: '500' }}>
-                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => bordado.completado ? onToggleCompletado(bordado.id) : confirmarCompletado(bordado)}
-                      style={{
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: '0.375rem',
-                        fontSize: '0.75rem',
-                        fontWeight: '500',
-                        border: 'none',
-                        cursor: 'pointer',
-                        backgroundColor: bordado.completado ? '#fef3c7' : '#dcfce7',
-                        color: bordado.completado ? '#92400e' : '#166534'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = bordado.completado ? '#fde68a' : '#bbf7d0';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = bordado.completado ? '#fef3c7' : '#dcfce7';
-                      }}
-                    >
-                      {bordado.completado ? 'Desmarcar' : 'Completar'}
-                    </button>
-                    <button
-                      onClick={() => bordado.pagado ? onTogglePagado(bordado.id) : confirmarPagado(bordado)}
-                      style={{
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: '0.375rem',
-                        fontSize: '0.75rem',
-                        fontWeight: '500',
-                        border: 'none',
-                        cursor: 'pointer',
-                        backgroundColor: bordado.pagado ? '#fee2e2' : '#dcfce7',
-                        color: bordado.pagado ? '#991b1b' : '#166534'
-                      }}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = bordado.pagado ? '#fecaca' : '#bbf7d0';
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = bordado.pagado ? '#fee2e2' : '#dcfce7';
-                      }}
-                    >
-                      {bordado.pagado ? 'Desmarcar Pago' : 'Marcar Pagado'}
-                    </button>
-                    <button
-                      onClick={() => onDelete(bordado.id)}
-                      style={{
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: '0.375rem',
-                        fontSize: '0.75rem',
-                        fontWeight: '500',
-                        border: 'none',
-                        cursor: 'pointer',
-                        backgroundColor: '#fee2e2',
-                        color: '#991b1b'
-                      }}
-                      onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fecaca'}
-                      onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fee2e2'}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Contenedor responsive para la tabla */}
+      <div className="overflow-x-auto">
+        <div className="min-w-full inline-block align-middle">
+          <div className="overflow-hidden border border-gray-200 rounded-lg">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Cliente
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Contacto
+                  </th>
+                  <th className="hidden md:table-cell px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Descripción
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Cant.
+                  </th>
+                  <th className="hidden sm:table-cell px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Precio
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total
+                  </th>
+                  <th className="hidden lg:table-cell px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Entrega
+                  </th>
+                  <th className="hidden sm:table-cell px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Estado
+                  </th>
+                  <th className="hidden md:table-cell px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Pago
+                  </th>
+                  <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {bordadosFiltrados.map((bordado, index) => (
+                  <tr key={bordado.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {bordado.nombreCliente}
+                      </div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <button
+                        onClick={() => abrirWhatsApp(bordado.numeroContacto)}
+                        className="text-sm text-blue-600 hover:text-blue-800 underline bg-transparent border-none cursor-pointer"
+                      >
+                        {bordado.numeroContacto}
+                      </button>
+                    </td>
+                    <td className="hidden md:table-cell px-3 py-4">
+                      <div className="text-sm text-gray-900 max-w-xs truncate" title={bordado.descripcion}>
+                        {bordado.descripcion}
+                      </div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {bordado.cantidad}
+                      </div>
+                    </td>
+                    <td className="hidden sm:table-cell px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        ${bordado.precio.toFixed(2)}
+                      </div>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        ${bordado.precioTotal.toFixed(2)}
+                      </div>
+                    </td>
+                    <td className="hidden lg:table-cell px-3 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {formatearFecha(bordado.fechaEntrega)}
+                      </div>
+                    </td>
+                    <td className="hidden sm:table-cell px-3 py-4 whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        bordado.completado 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {bordado.completado ? 'Completado' : 'Pendiente'}
+                      </span>
+                    </td>
+                    <td className="hidden md:table-cell px-3 py-4 whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        bordado.pagado 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {bordado.pagado ? 'Pagado' : 'Pendiente'}
+                      </span>
+                    </td>
+                    <td className="px-3 py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex flex-col gap-1">
+                        <button
+                          onClick={() => bordado.completado ? onToggleCompletado(bordado.id) : confirmarCompletado(bordado)}
+                          className={`px-2 py-1 text-xs font-medium rounded transition-colors ${
+                            bordado.completado 
+                              ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200' 
+                              : 'bg-green-100 text-green-800 hover:bg-green-200'
+                          }`}
+                        >
+                          {bordado.completado ? 'Desmarcar' : 'Completar'}
+                        </button>
+                        <button
+                          onClick={() => bordado.pagado ? onTogglePagado(bordado.id) : confirmarPagado(bordado)}
+                          className={`px-2 py-1 text-xs font-medium rounded transition-colors ${
+                            bordado.pagado 
+                              ? 'bg-red-100 text-red-800 hover:bg-red-200' 
+                              : 'bg-green-100 text-green-800 hover:bg-green-200'
+                          }`}
+                        >
+                          {bordado.pagado ? 'Desmarcar Pago' : 'Marcar Pagado'}
+                        </button>
+                        <button
+                          onClick={() => onDelete(bordado.id)}
+                          className="px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-800 hover:bg-red-200 transition-colors"
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
