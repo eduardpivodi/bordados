@@ -5,7 +5,7 @@ export const bordadoService = {
   // Obtener todos los bordados
   getBordados: async (): Promise<Bordado[]> => {
     if (!supabase) {
-      throw new Error('Supabase no está configurado');
+      throw new Error('No se pudo conectar con la base de datos.');
     }
 
     try {
@@ -29,7 +29,7 @@ export const bordadoService = {
   // Agregar nuevo bordado
   addBordado: async (bordado: Omit<Bordado, 'id' | 'fechaCreacion' | 'completado' | 'pagado'>): Promise<Bordado> => {
     if (!supabase) {
-      throw new Error('Supabase no está configurado');
+      throw new Error('No se pudo conectar con la base de datos.');
     }
 
     try {
@@ -61,7 +61,7 @@ export const bordadoService = {
   // Marcar bordado como completado
   toggleCompletado: async (id: string): Promise<void> => {
     if (!supabase) {
-      throw new Error('Supabase no está configurado');
+      throw new Error('No se pudo conectar con la base de datos.');
     }
 
     try {
@@ -96,7 +96,7 @@ export const bordadoService = {
   // Marcar bordado como pagado
   togglePagado: async (id: string): Promise<void> => {
     if (!supabase) {
-      throw new Error('Supabase no está configurado');
+      throw new Error('No se pudo conectar con la base de datos.');
     }
 
     try {
@@ -131,7 +131,7 @@ export const bordadoService = {
   // Eliminar bordado
   deleteBordado: async (id: string): Promise<void> => {
     if (!supabase) {
-      throw new Error('Supabase no está configurado');
+      throw new Error('No se pudo conectar con la base de datos.');
     }
 
     try {
@@ -153,7 +153,7 @@ export const bordadoService = {
   // Suscribirse a cambios en tiempo real con manejo optimizado
   subscribeToChanges: (callback: (bordados: Bordado[]) => void) => {
     if (!supabase) {
-      console.warn('Supabase no está configurado, no se pueden suscribir cambios en tiempo real');
+      console.warn('No se pueden suscribir cambios en tiempo real');
       return {
         unsubscribe: () => {}
       };

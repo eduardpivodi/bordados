@@ -28,19 +28,23 @@ function App() {
     if (success) {
       setMostrarModal(false);
     }
+    // Si no es exitoso, el error ya se muestra automáticamente
   };
 
   const handleToggleCompletado = async (id: string) => {
     await toggleCompletado(id);
+    // El éxito o error se maneja automáticamente
   };
 
   const handleTogglePagado = async (id: string) => {
     await togglePagado(id);
+    // El éxito o error se maneja automáticamente
   };
 
   const handleDeleteBordado = async (id: string) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este bordado?')) {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este bordado? Esta acción no se puede deshacer.')) {
       await deleteBordado(id);
+      // El éxito o error se maneja automáticamente
     }
   };
 

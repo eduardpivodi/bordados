@@ -7,6 +7,7 @@ export const useBordados = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [setSubscription] = useState<any>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -19,6 +20,8 @@ export const useBordados = () => {
       }
     });
 
+    setSubscription(subscription);
+
     return () => {
       isMounted = false;
       subscription.unsubscribe();
@@ -29,7 +32,6 @@ export const useBordados = () => {
     try {
       setError(null);
       await bordadoService.addBordado(nuevoBordado);
-      setSuccessMessage('Bordado agregado exitosamente');
       setTimeout(() => setSuccessMessage(null), 3000);
       return true;
     } catch (err) {
@@ -42,8 +44,19 @@ export const useBordados = () => {
   const toggleCompletado = async (id: string) => {
     try {
       setError(null);
+      
+      // Actualizar el estado local inmediatamente para mejor UX
+      setBordados(prevBordados => 
+        prevBordados.map(bordado => 
+          bordado.id === id 
+            ? { ...bordado, completado: !bordado.completado }
+            : bordado
+        )
+      );
+      
+      // Luego actualizar en la base de datos
       await bordadoService.toggleCompletado(id);
-      setSuccessMessage('Estado de completado actualizado');
+      
       setTimeout(() => setSuccessMessage(null), 3000);
       return true;
     } catch (err) {
@@ -56,8 +69,19 @@ export const useBordados = () => {
   const togglePagado = async (id: string) => {
     try {
       setError(null);
+      
+      // Actualizar el estado local inmediatamente para mejor UX
+      setBordados(prevBordados => 
+        prevBordados.map(bordado => 
+          bordado.id === id 
+            ? { ...bordado, pagado: !bordado.pagado }
+            : bordado
+        )
+      );
+      
+      // Luego actualizar en la base de datos
       await bordadoService.togglePagado(id);
-      setSuccessMessage('Estado de pago actualizado');
+      
       setTimeout(() => setSuccessMessage(null), 3000);
       return true;
     } catch (err) {
@@ -71,7 +95,6 @@ export const useBordados = () => {
     try {
       setError(null);
       await bordadoService.deleteBordado(id);
-      setSuccessMessage('Bordado eliminado exitosamente');
       setTimeout(() => setSuccessMessage(null), 3000);
       return true;
     } catch (err) {

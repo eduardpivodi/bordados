@@ -63,6 +63,17 @@ export const TablaBordados: React.FC<TablaBordadosProps> = ({
     }
   };
 
+  const confirmarDesmarcarPago = (bordado: Bordado) => {
+    const confirmacion = window.confirm(
+      `¿Confirmar que desea desmarcar el pago del bordado de ${bordado.nombreCliente}?\n\n` +
+      `Esto marcará el bordado como no pagado.`
+    );
+    
+    if (confirmacion) {
+      onTogglePagado(bordado.id);
+    }
+  };
+
   const formatearFecha = (fecha: string) => {
     return new Date(fecha).toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -214,7 +225,7 @@ export const TablaBordados: React.FC<TablaBordadosProps> = ({
                           {bordado.completado ? 'Desmarcar' : 'Completar'}
                         </button>
                         <button
-                          onClick={() => bordado.pagado ? onTogglePagado(bordado.id) : confirmarPagado(bordado)}
+                          onClick={() => bordado.pagado ? confirmarDesmarcarPago(bordado) : confirmarPagado(bordado)}
                           className={`px-2 py-1 text-xs font-medium rounded transition-colors ${
                             bordado.pagado 
                               ? 'bg-red-100 text-red-800 hover:bg-red-200' 
