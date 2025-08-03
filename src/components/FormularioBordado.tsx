@@ -54,9 +54,9 @@ export const FormularioBordado: React.FC<FormularioBordadoProps> = ({ onSubmit, 
   };
 
   return (
-    <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="space-y-2">
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Nombre del Cliente
@@ -101,7 +101,7 @@ export const FormularioBordado: React.FC<FormularioBordadoProps> = ({ onSubmit, 
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Cantidad
@@ -145,11 +145,6 @@ export const FormularioBordado: React.FC<FormularioBordadoProps> = ({ onSubmit, 
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Si no se especifica, será para mañana"
             />
-            {!formData.fechaEntrega && (
-              <p className="text-xs text-gray-500 mt-1">
-                Si no se especifica, se establecerá para mañana automáticamente
-              </p>
-            )}
           </div>
         </div>
 
