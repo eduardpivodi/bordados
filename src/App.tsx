@@ -5,6 +5,7 @@ import { Estadisticas } from './components/Estadisticas';
 import { Modal } from './components/Modal';
 import { Notification } from './components/Notification';
 import { useBordados } from './hooks/useBordados';
+import type { Bordado } from './types/Bordado';
 
 function App() {
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -23,7 +24,7 @@ function App() {
     clearSuccess
   } = useBordados();
 
-  const handleAgregarBordado = async (nuevoBordado: any) => {
+  const handleAgregarBordado = async (nuevoBordado: Omit<Bordado, 'id' | 'fechaCreacion' | 'completado' | 'pagado'>) => {
     const success = await addBordado(nuevoBordado);
     if (success) {
       setMostrarModal(false);

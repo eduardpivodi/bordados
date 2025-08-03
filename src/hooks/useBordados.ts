@@ -7,7 +7,7 @@ export const useBordados = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [setSubscription] = useState<any>(null);
+  const [, setSubscription] = useState<(() => void) | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -20,13 +20,13 @@ export const useBordados = () => {
       }
     });
 
-    setSubscription(subscription);
+    setSubscription(() => subscription.unsubscribe.bind(subscription));
 
     return () => {
       isMounted = false;
       subscription.unsubscribe();
     };
-  }, []);
+  }, [setSubscription]);
 
   const addBordado = async (nuevoBordado: Omit<Bordado, 'id' | 'fechaCreacion' | 'completado' | 'pagado'>) => {
     try {

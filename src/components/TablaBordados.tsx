@@ -38,7 +38,7 @@ export const TablaBordados: React.FC<TablaBordadosProps> = ({
     
     // Usar nombre de ventana específico para reutilizar
     const windowName = 'whatsapp_web_window';
-    window.open(url, windowName)?.focus;
+    window.open(url, windowName)?.focus();
   };
 
   const confirmarCompletado = (bordado: Bordado) => {
