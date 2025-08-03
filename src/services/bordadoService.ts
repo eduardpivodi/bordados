@@ -172,7 +172,6 @@ export const bordadoService = {
           table: 'bordados'
         },
         async (payload) => {
-          console.log('Cambio detectado en tiempo real:', payload);
           
           try {
             // Actualizar la lista local según el tipo de cambio
@@ -211,7 +210,6 @@ export const bordadoService = {
         }
       )
       .subscribe((status) => {
-        console.log('Estado de suscripción:', status);
         if (status === 'SUBSCRIBED' && !isInitialized) {
           // Cargar datos iniciales cuando la suscripción esté activa
           bordadoService.getBordados()
